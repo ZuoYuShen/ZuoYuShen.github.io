@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="左大喵">
 <meta property="og:description" content="数字图像处理Chapter 2笔记灰度变换1.图像读取读取图像的命令为：imread(‘filename’); 2.图像保存将图像保存为jpg格式并保存在当前文件夹命令为：imwrite ( g , ‘Fig0205(a)log.jpg’ , ‘quality’ , 100);参数quality为图像质量，取值为0到100. imadjust &amp;amp; stretchlim 函数基本格式：g =">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-07T08:42:35.762Z">
+<meta property="og:updated_time" content="2018-04-07T08:53:30.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Digital image processing 2.1 | 左大喵">
 <meta name="twitter:description" content="数字图像处理Chapter 2笔记灰度变换1.图像读取读取图像的命令为：imread(‘filename’); 2.图像保存将图像保存为jpg格式并保存在当前文件夹命令为：imwrite ( g , ‘Fig0205(a)log.jpg’ , ‘quality’ , 100);参数quality为图像质量，取值为0到100. imadjust &amp;amp; stretchlim 函数基本格式：g =">
@@ -176,38 +176,53 @@ classes that you can use:
 <p><strong>imadjust &amp; stretchlim 函数</strong><br>基本格式：g = imadjust ( f , [low_in high_in] , [low_out high_out] , gamma)<br>根据不同的函数，不同的映射区间将输入图像的灰度值映射到输出图像的灰度值。</p>
 <h3 id="3-图像对数变换"><a href="#3-图像对数变换" class="headerlink" title="3.图像对数变换"></a>3.<strong>图像对数变换</strong></h3><p><strong>压缩图像动态范围</strong></p>
 <pre><code>
-f=imread(&apos;Fig0205(a).tif&apos;);
+f=imread('Fig0205(a).tif');
 imshow(f);
 g=im2uint8(mat2gray(log(1+double(f))));
 imshow(g);
 g1=im2uint8(mat2gray(log(1+f)));
-出现错误：未定义与 &apos;uint8&apos; 类型的输入参数相对应的函数 &apos;log&apos;。
+出现错误：未定义与 'uint8' 类型的输入参数相对应的函数 'log'。
+</code></pre>
 
-</code></pre><p>log函数的数据类型为double，而输入图像为uint8型，所以要先用double()函数转换再进行对数变换。  </p>
-<h3 id="4-指定任意灰度变换"><a href="#4-指定任意灰度变换" class="headerlink" title="4.指定任意灰度变换"></a>4.<strong>指定任意灰度变换</strong></h3><p><strong>预备知识</strong><br><strong>Matlab function :</strong><br><strong>1.linespace(x1,x2,N)</strong><br>均分计算指令，用于产生x1,x2之间的N点行线性的矢量，类似于均匀采样。<br><strong>2.numel(‘X’)</strong><br>对于图像’X’，这个函数会给出图像的像素数。<br><strong>3.interp1(x，y,xi,’method’)</strong><br>参考自：<a href="https://blog.csdn.net/zengxiantao1994/article/details/70177996" target="_blank" rel="noopener">https://blog.csdn.net/zengxiantao1994/article/details/70177996</a>  </p>
-<blockquote>
-<pre><code>MATLAB中的插值函数为interp1，其调用格式为：  yi= interp1(x,y,xi,&apos;method&apos;)             
-其中x，y为插值点，yi为在被插值点xi处的插值结果；x,y为向量，   
-&apos;method&apos;表示采用的插值方法，MATLAB提供的插值方法有几种：   
-&apos;nearest&apos;是最邻近插值， &apos;linear&apos;线性插值； &apos;spline&apos;三次样条插值； &apos;pchip&apos;立方插值．缺省时表示线性插值  
-注意：所有的插值方法都要求x是单调的，并且xi不能够超过x的范围。  
-</code></pre></blockquote>
-<pre><code>命令如下:
-</code></pre><blockquote>
-<p>x = 0:2<em>pi;<br>    y = sin(x);<br>    xx = 0:0.5:2</em>pi;    </p>
-</blockquote>
-<blockquote>
-<p>   % interp1对sin函数进行分段线性插值，调用interp1的时候，默认的是分段线性插值<br>    y1 = interp1(x,y,xx,’linear’);<br>    subplot(2,2,1);<br>    plot(x,y,’o’,xx,y1,’r’)<br>    title(‘分段线性插值’)    </p>
-</blockquote>
-<blockquote>
-<p>   % 临近插值<br>    y2 = interp1(x,y,xx,’nearest’);<br>    subplot(2,2,2);<br>    plot(x,y,’o’,xx,y2,’r’);<br>    title(‘临近插值’)    </p>
-</blockquote>
-<blockquote>
-<p>   %球面线性插值<br>    y3 = interp1(x,y,xx,’spline’);<br>    subplot(2,2,3);<br>    plot(x,y,’o’,xx,y3,’r’)<br>    title(‘球面插值’)    </p>
-</blockquote>
-<blockquote>
-<p>   %三次多项式插值法<br>    y4 = interp1(x,y,xx,’pchip’);<br>    subplot(2,2,4);<br>    plot(x,y,’o’,xx,y4,’r’);<br>   title(‘三次多项式插值’)  </p>
-</blockquote>
+<p>log函数的数据类型为double，而输入图像为uint8型，所以要先用double()函数转换再进行对数变换。  </p>
+<h3 id="4-指定任意灰度变换"><a href="#4-指定任意灰度变换" class="headerlink" title="4.指定任意灰度变换"></a>4.<strong>指定任意灰度变换</strong></h3><p><strong>预备知识</strong><br><strong>Matlab function :</strong><br><strong>1.linespace(x1,x2,N)</strong><br>均分计算指令，用于产生x1,x2之间的N点行线性的矢量，类似于均匀采样。<br><strong>2.numel(‘X’)</strong><br>对于图像’X’，这个函数会给出图像的像素数。<br><strong>3.interp1(x，y,xi,’method’)</strong>   </p>
+<p>参考自：<a href="https://blog.csdn.net/zengxiantao1994/article/details/70177996" target="_blank" rel="noopener">https://blog.csdn.net/zengxiantao1994/article/details/70177996</a>  </p>
+<pre><code>     
+ MATLAB中的插值函数为interp1，其调用格式为：  yi= interp1(x,y,xi,'method')             
+ 其中x，y为插值点，yi为在被插值点xi处的插值结果；x,y为向量，   
+ 'method'表示采用的插值方法，MATLAB提供的插值方法有几种：   
+ 'nearest'是最邻近插值， 'linear'线性插值； 'spline'三次样条插值； 'pchip'立方插值．缺省时表示线性插值  
+ 注意：所有的插值方法都要求x是单调的，并且xi不能够超过x的范围。     
+
+ x = 0:2*pi;    
+ y = sin(x);    
+ xx = 0:0.5:2*pi;    
+
+ % interp1对sin函数进行分段线性插值，调用interp1的时候，默认的是分段线性插值    
+ y1 = interp1(x,y,xx,'linear');    
+ subplot(2,2,1);  
+ plot(x,y,'o',xx,y1,'r')    
+ title('分段线性插值')    
+
+ % 临近插值    
+ y2 = interp1(x,y,xx,'nearest');    
+ subplot(2,2,2);  
+ plot(x,y,'o',xx,y2,'r');    
+ title('临近插值')    
+
+ %球面线性插值    
+ y3 = interp1(x,y,xx,'spline');    
+ subplot(2,2,3);  
+ plot(x,y,'o',xx,y3,'r')    
+ title('球面插值')    
+
+ %三次多项式插值法    
+ y4 = interp1(x,y,xx,'pchip');    
+ subplot(2,2,4);  
+ plot(x,y,'o',xx,y4,'r');    
+ title('三次多项式插值')  
+</code></pre>
+
 <p>根据上面的3个函数，在图像上进行任意灰度变换的方法为：<br><strong>g=interp1(z,T,f)</strong><br>其中，f为输入图像，g为输出图像。T为列向量，包含变换函数值。<br><strong>z=linespace(0,1,numel(T))’</strong>，大小与T相同。<br>变换时，对于输入图像某点的像素值归一化后，在[0,1]上找到对应的z值，看其落在哪个区间[zi,zj]上，根据[zi,zj]对应的T值进行线性插值作为输出图像中该点的像素值g。这样，通过指定T中的内容，就可以进行任意的图像灰度变换。<br>*：插值是必要的：T，z为有限长序列，大小极有可能与输入图像的像素数不相等，此时若不进行插值，那么输入图像某点的像素值归一化以后，很有可能会找不到对应的z，进而找不到对应的T值进行变换。</p>
 <h3 id="5-Intrans-m"><a href="#5-Intrans-m" class="headerlink" title="5. Intrans.m"></a>5. <strong>Intrans.m</strong></h3><p>后面的intrans函数其实是将上面的变换集合在一个函数里面了，并且使用了多输入的方法，利用nargchk结合error来检查参数数量（参数可变，但是有范围），再利用varargin来进行多参数的输入。主函数利用case语句来进行子函数的调用，子函数则为各种变换。在写子函数时要注意输入图像的数据类型，是否适合于改子函数中的变换方法必要时要转换图像数据类型。</p>
 
