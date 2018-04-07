@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="左大喵">
 <meta property="og:description" content="数字图像处理Chapter 2笔记灰度变换1.图像读取读取图像的命令为：imread(‘filename’); 2.图像保存将图像保存为jpg格式并保存在当前文件夹命令为：imwrite ( g , ‘Fig0205(a)log.jpg’ , ‘quality’ , 100);参数quality为图像质量，取值为0到100. imadjust &amp;amp; stretchlim 函数基本格式：g =">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-07T08:53:30.122Z">
+<meta property="og:updated_time" content="2018-04-07T08:55:53.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Digital image processing 2.1 | 左大喵">
 <meta name="twitter:description" content="数字图像处理Chapter 2笔记灰度变换1.图像读取读取图像的命令为：imread(‘filename’); 2.图像保存将图像保存为jpg格式并保存在当前文件夹命令为：imwrite ( g , ‘Fig0205(a)log.jpg’ , ‘quality’ , 100);参数quality为图像质量，取值为0到100. imadjust &amp;amp; stretchlim 函数基本格式：g =">
@@ -185,7 +185,7 @@ g1=im2uint8(mat2gray(log(1+f)));
 </code></pre>
 
 <p>log函数的数据类型为double，而输入图像为uint8型，所以要先用double()函数转换再进行对数变换。  </p>
-<h3 id="4-指定任意灰度变换"><a href="#4-指定任意灰度变换" class="headerlink" title="4.指定任意灰度变换"></a>4.<strong>指定任意灰度变换</strong></h3><p><strong>预备知识</strong><br><strong>Matlab function :</strong><br><strong>1.linespace(x1,x2,N)</strong><br>均分计算指令，用于产生x1,x2之间的N点行线性的矢量，类似于均匀采样。<br><strong>2.numel(‘X’)</strong><br>对于图像’X’，这个函数会给出图像的像素数。<br><strong>3.interp1(x，y,xi,’method’)</strong>   </p>
+<h3 id="4-指定任意灰度变换"><a href="#4-指定任意灰度变换" class="headerlink" title="4.指定任意灰度变换"></a>4.<strong>指定任意灰度变换</strong></h3><p><strong>预备知识</strong><br><strong>Matlab function :</strong><br><strong>1.linespace(x1,x2,N)</strong><br>均分计算指令，用于产生x1,x2之间的N点行线性的矢量，类似于均匀采样。<br><strong>2.numel(‘X’)</strong><br>对于图像’X’，这个函数会给出图像的像素数。<br><strong>3.interp1(x,y,xi,’method’)</strong>   </p>
 <p>参考自：<a href="https://blog.csdn.net/zengxiantao1994/article/details/70177996" target="_blank" rel="noopener">https://blog.csdn.net/zengxiantao1994/article/details/70177996</a>  </p>
 <pre><code>     
  MATLAB中的插值函数为interp1，其调用格式为：  yi= interp1(x,y,xi,'method')             
