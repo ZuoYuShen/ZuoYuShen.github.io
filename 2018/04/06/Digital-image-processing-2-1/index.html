@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="左大喵">
 <meta property="og:description" content="数字图像处理Chapter 2笔记灰度变换1.图像读取读取图像的命令为：imread(‘filename’); 2.图像保存将图像保存为jpg格式并保存在当前文件夹命令为：imwrite ( g , ‘Fig0205(a)log.jpg’ , ‘quality’ , 100);参数quality为图像质量，取值为0到100. imadjust &amp;amp; stretchlim 函数基本格式：g =">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-07T08:55:53.961Z">
+<meta property="og:updated_time" content="2018-04-11T06:10:39.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Digital image processing 2.1 | 左大喵">
 <meta name="twitter:description" content="数字图像处理Chapter 2笔记灰度变换1.图像读取读取图像的命令为：imread(‘filename’); 2.图像保存将图像保存为jpg格式并保存在当前文件夹命令为：imwrite ( g , ‘Fig0205(a)log.jpg’ , ‘quality’ , 100);参数quality为图像质量，取值为0到100. imadjust &amp;amp; stretchlim 函数基本格式：g =">
@@ -225,6 +225,7 @@ g1=im2uint8(mat2gray(log(1+f)));
 
 <p>根据上面的3个函数，在图像上进行任意灰度变换的方法为：<br><strong>g=interp1(z,T,f)</strong><br>其中，f为输入图像，g为输出图像。T为列向量，包含变换函数值。<br><strong>z=linespace(0,1,numel(T))’</strong>，大小与T相同。<br>变换时，对于输入图像某点的像素值归一化后，在[0,1]上找到对应的z值，看其落在哪个区间[zi,zj]上，根据[zi,zj]对应的T值进行线性插值作为输出图像中该点的像素值g。这样，通过指定T中的内容，就可以进行任意的图像灰度变换。<br>*：插值是必要的：T，z为有限长序列，大小极有可能与输入图像的像素数不相等，此时若不进行插值，那么输入图像某点的像素值归一化以后，很有可能会找不到对应的z，进而找不到对应的T值进行变换。</p>
 <h3 id="5-Intrans-m"><a href="#5-Intrans-m" class="headerlink" title="5. Intrans.m"></a>5. <strong>Intrans.m</strong></h3><p>后面的intrans函数其实是将上面的变换集合在一个函数里面了，并且使用了多输入的方法，利用nargchk结合error来检查参数数量（参数可变，但是有范围），再利用varargin来进行多参数的输入。主函数利用case语句来进行子函数的调用，子函数则为各种变换。在写子函数时要注意输入图像的数据类型，是否适合于改子函数中的变换方法必要时要转换图像数据类型。</p>
+<h2 id="直方图处理与函数绘图"><a href="#直方图处理与函数绘图" class="headerlink" title="直方图处理与函数绘图"></a><strong>直方图处理与函数绘图</strong></h2><h3 id="1-生成图像的直方图"><a href="#1-生成图像的直方图" class="headerlink" title="1.生成图像的直方图"></a>1.生成图像的直方图</h3><p>生成图像的直方图命令：<strong>h=imhist(f,b)</strong><br>f: 输入图像  b: 统计堆栈 默认为256，即每个像素值对应一个值，若为2，则在0到127，127到255这两个区间上显示区间内的像素点统计值。<br>归一化直方图：<strong>p=imhist(f,b)./numel(f)</strong><br>直方图均衡化函数：<strong>g=histeq(f,nelv)</strong><br>nelv为输出图像设定的灰度级数。默认为64。通常情况下，我们要设定为256。</p>
 
   </section>
 
